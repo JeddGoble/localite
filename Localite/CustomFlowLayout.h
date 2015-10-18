@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  CustomFlowLayout.h
 //  Localite
 //
 //  Created by Jedd Goble on 10/15/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
+@interface CustomFlowLayout : UICollectionViewFlowLayout
 
 @end
-

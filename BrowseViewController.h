@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  BrowseViewController.h
 //  Localite
 //
 //  Created by Jedd Goble on 10/15/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
-
+@interface BrowseViewController : UIViewController
 
 @end
-

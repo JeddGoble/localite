@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04327F901BD40AE700C4FA46 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
+		04327F931BD433DB00C4FA46 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F921BD433DB00C4FA46 /* OverlayView.m */; settings = {ASSET_TAGS = (); }; };
+		043852041BD1B69600877B8E /* LocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 043852031BD1B69600877B8E /* LocationHandler.m */; settings = {ASSET_TAGS = (); }; };
+		0466236C1BD154F400D7E259 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0466236B1BD154F400D7E259 /* MapKit.framework */; };
+		046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB9501BD0767100F01BEB /* BrowseViewController.m */; settings = {ASSET_TAGS = (); }; };
+		046DB9541BD0873F00F01BEB /* CustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB9531BD0873F00F01BEB /* CustomFlowLayout.m */; settings = {ASSET_TAGS = (); }; };
+		047351D01BD2FBF1004174A4 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047351CF1BD2FBF1004174A4 /* CustomCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1A1BD0528B006522E7 /* APIHandler.m */; settings = {ASSET_TAGS = (); }; };
+		04831E1E1BD0548D006522E7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1D1BD0548D006522E7 /* Photo.m */; settings = {ASSET_TAGS = (); }; };
+		0485D6AB1BD1D4F600890DF6 /* CustomPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */; settings = {ASSET_TAGS = (); }; };
 		04F2384E1BD03DDC00FAD68C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2384D1BD03DDC00FAD68C /* main.m */; };
 		04F238511BD03DDC00FAD68C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238501BD03DDC00FAD68C /* AppDelegate.m */; };
-		04F238541BD03DDC00FAD68C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238531BD03DDC00FAD68C /* FirstViewController.m */; };
-		04F238571BD03DDC00FAD68C /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238561BD03DDC00FAD68C /* SecondViewController.m */; };
+		04F238571BD03DDC00FAD68C /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238561BD03DDC00FAD68C /* MapViewController.m */; };
 		04F2385A1BD03DDC00FAD68C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F238581BD03DDC00FAD68C /* Main.storyboard */; };
 		04F2385C1BD03DDC00FAD68C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F2385B1BD03DDC00FAD68C /* Assets.xcassets */; };
 		04F2385F1BD03DDC00FAD68C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F2385D1BD03DDC00FAD68C /* LaunchScreen.storyboard */; };
 		04F2386A1BD03DDC00FAD68C /* LocaliteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238691BD03DDC00FAD68C /* LocaliteTests.m */; };
 		04F238751BD03DDC00FAD68C /* LocaliteUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238741BD03DDC00FAD68C /* LocaliteUITests.m */; };
+		04F238841BD0439C00FAD68C /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238831BD0439C00FAD68C /* GalleryViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,14 +46,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04327F8E1BD40AE700C4FA46 /* CustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
+		04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
+		04327F911BD433DB00C4FA46 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		04327F921BD433DB00C4FA46 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		043852021BD1B69600877B8E /* LocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHandler.h; sourceTree = "<group>"; };
+		043852031BD1B69600877B8E /* LocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHandler.m; sourceTree = "<group>"; };
+		0466236B1BD154F400D7E259 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		046DB94F1BD0767100F01BEB /* BrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BrowseViewController.h; path = ../BrowseViewController.h; sourceTree = "<group>"; };
+		046DB9501BD0767100F01BEB /* BrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BrowseViewController.m; path = ../BrowseViewController.m; sourceTree = "<group>"; };
+		046DB9521BD0873F00F01BEB /* CustomFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFlowLayout.h; sourceTree = "<group>"; };
+		046DB9531BD0873F00F01BEB /* CustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlowLayout.m; sourceTree = "<group>"; };
+		047351CE1BD2FBF1004174A4 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
+		047351CF1BD2FBF1004174A4 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
+		04831E191BD0528B006522E7 /* APIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIHandler.h; sourceTree = "<group>"; };
+		04831E1A1BD0528B006522E7 /* APIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIHandler.m; sourceTree = "<group>"; };
+		04831E1C1BD0548D006522E7 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		04831E1D1BD0548D006522E7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		0485D6A91BD1D4F600890DF6 /* CustomPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPointAnnotation.h; sourceTree = "<group>"; };
+		0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPointAnnotation.m; sourceTree = "<group>"; };
 		04F238491BD03DDC00FAD68C /* Localite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Localite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F2384D1BD03DDC00FAD68C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04F2384F1BD03DDC00FAD68C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04F238501BD03DDC00FAD68C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		04F238521BD03DDC00FAD68C /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		04F238531BD03DDC00FAD68C /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		04F238551BD03DDC00FAD68C /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		04F238561BD03DDC00FAD68C /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		04F238551BD03DDC00FAD68C /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		04F238561BD03DDC00FAD68C /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		04F238591BD03DDC00FAD68C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04F2385B1BD03DDC00FAD68C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04F2385E1BD03DDC00FAD68C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -54,6 +81,8 @@
 		04F238701BD03DDC00FAD68C /* LocaliteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocaliteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F238741BD03DDC00FAD68C /* LocaliteUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocaliteUITests.m; sourceTree = "<group>"; };
 		04F238761BD03DDC00FAD68C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04F238821BD0439C00FAD68C /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		04F238831BD0439C00FAD68C /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0466236C1BD154F400D7E259 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +114,7 @@
 		04F238401BD03DDC00FAD68C = {
 			isa = PBXGroup;
 			children = (
+				0466236B1BD154F400D7E259 /* MapKit.framework */,
 				04F2384B1BD03DDC00FAD68C /* Localite */,
 				04F238681BD03DDC00FAD68C /* LocaliteTests */,
 				04F238731BD03DDC00FAD68C /* LocaliteUITests */,
@@ -104,13 +135,31 @@
 		04F2384B1BD03DDC00FAD68C /* Localite */ = {
 			isa = PBXGroup;
 			children = (
+				047351CE1BD2FBF1004174A4 /* CustomCollectionViewCell.h */,
+				047351CF1BD2FBF1004174A4 /* CustomCollectionViewCell.m */,
+				046DB94F1BD0767100F01BEB /* BrowseViewController.h */,
+				046DB9501BD0767100F01BEB /* BrowseViewController.m */,
+				046DB9521BD0873F00F01BEB /* CustomFlowLayout.h */,
+				046DB9531BD0873F00F01BEB /* CustomFlowLayout.m */,
 				04F2384F1BD03DDC00FAD68C /* AppDelegate.h */,
 				04F238501BD03DDC00FAD68C /* AppDelegate.m */,
-				04F238521BD03DDC00FAD68C /* FirstViewController.h */,
-				04F238531BD03DDC00FAD68C /* FirstViewController.m */,
-				04F238551BD03DDC00FAD68C /* SecondViewController.h */,
-				04F238561BD03DDC00FAD68C /* SecondViewController.m */,
+				04F238551BD03DDC00FAD68C /* MapViewController.h */,
+				04F238561BD03DDC00FAD68C /* MapViewController.m */,
+				04327F911BD433DB00C4FA46 /* OverlayView.h */,
+				04327F921BD433DB00C4FA46 /* OverlayView.m */,
+				04327F8E1BD40AE700C4FA46 /* CustomAnnotationView.h */,
+				04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */,
+				0485D6A91BD1D4F600890DF6 /* CustomPointAnnotation.h */,
+				0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */,
+				04F238821BD0439C00FAD68C /* GalleryViewController.h */,
+				04F238831BD0439C00FAD68C /* GalleryViewController.m */,
 				04F238581BD03DDC00FAD68C /* Main.storyboard */,
+				04831E191BD0528B006522E7 /* APIHandler.h */,
+				04831E1A1BD0528B006522E7 /* APIHandler.m */,
+				043852021BD1B69600877B8E /* LocationHandler.h */,
+				043852031BD1B69600877B8E /* LocationHandler.m */,
+				04831E1C1BD0548D006522E7 /* Photo.h */,
+				04831E1D1BD0548D006522E7 /* Photo.m */,
 				04F2385B1BD03DDC00FAD68C /* Assets.xcassets */,
 				04F2385D1BD03DDC00FAD68C /* LaunchScreen.storyboard */,
 				04F238601BD03DDC00FAD68C /* Info.plist */,
@@ -212,6 +261,12 @@
 				TargetAttributes = {
 					04F238481BD03DDC00FAD68C = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = YUYQ7F3X7U;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					04F238641BD03DDC00FAD68C = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -275,10 +330,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04F238571BD03DDC00FAD68C /* SecondViewController.m in Sources */,
+				04831E1E1BD0548D006522E7 /* Photo.m in Sources */,
+				04F238571BD03DDC00FAD68C /* MapViewController.m in Sources */,
+				04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */,
+				047351D01BD2FBF1004174A4 /* CustomCollectionViewCell.m in Sources */,
+				046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */,
 				04F238511BD03DDC00FAD68C /* AppDelegate.m in Sources */,
-				04F238541BD03DDC00FAD68C /* FirstViewController.m in Sources */,
+				04327F931BD433DB00C4FA46 /* OverlayView.m in Sources */,
+				04327F901BD40AE700C4FA46 /* CustomAnnotationView.m in Sources */,
 				04F2384E1BD03DDC00FAD68C /* main.m in Sources */,
+				0485D6AB1BD1D4F600890DF6 /* CustomPointAnnotation.m in Sources */,
+				046DB9541BD0873F00F01BEB /* CustomFlowLayout.m in Sources */,
+				043852041BD1B69600877B8E /* LocationHandler.m in Sources */,
+				04F238841BD0439C00FAD68C /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,10 +481,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Localite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.Localite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -428,10 +496,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Localite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobilemakers.Localite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -502,6 +574,7 @@
 				04F2387B1BD03DDC00FAD68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04F2387C1BD03DDC00FAD68C /* Build configuration list for PBXNativeTarget "LocaliteTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +583,7 @@
 				04F2387E1BD03DDC00FAD68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04F2387F1BD03DDC00FAD68C /* Build configuration list for PBXNativeTarget "LocaliteUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +592,7 @@
 				04F238811BD03DDC00FAD68C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
