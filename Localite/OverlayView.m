@@ -36,7 +36,7 @@
     [fullScreenImage setContentMode:UIViewContentModeScaleAspectFit];
     [self addSubview:fullScreenImage];
     
-    self.xIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xicon"]];
+    self.xIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_close"]];
     self.xIcon.frame = CGRectMake(view.frame.size.width - 10 - self.xIcon.frame.size.width, 30, self.xIcon.frame.size.width, self.xIcon.frame.size.height);
     [self addSubview:self.xIcon];
     

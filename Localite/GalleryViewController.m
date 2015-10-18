@@ -9,8 +9,10 @@
 #import "GalleryViewController.h"
 #import "CustomCollectionViewCell.h"
 #import "Photo.h"
+#import "OverlayView.h"
 
-@interface GalleryViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CustomCollectionViewCellDelegate>
+
+@interface GalleryViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CustomCollectionViewCellDelegate, OverlayDelegate>
 
 @property (strong, nonatomic) NSMutableArray *favorites;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -18,6 +20,8 @@
 @property (strong, nonatomic) UIView *borderForImage;
 @property (strong, nonatomic) UIImageView *fullScreenImage;
 @property (strong, nonatomic) UILabel *removeFromGallery;
+@property (strong, nonatomic) UIImageView *blurredBackground;
+@property (strong, nonatomic) OverlayView *overlay;
 
 @end
 
@@ -30,85 +34,99 @@
 }
 
 
-- (void) cellTapped:(CGPoint)tapLocation {
-    
+
+- (void)cellTapped:(CGPoint)tapLocation {
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     
-    CustomCollectionViewCell *selectedCell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    self.currentlyViewingPhoto = [Photo new];
     self.currentlyViewingPhoto = [self.favorites objectAtIndex:indexPath.item];
     
-    self.borderForImage = [[UIView alloc] initWithFrame:selectedCell.frame];
-    self.borderForImage.hidden = NO;
-    self.borderForImage.backgroundColor = [UIColor colorWithRed:103.0 / 255.0 green:171.0 / 255.0 blue:156.0 / 255.0 alpha:0.6];
-    [self.view addSubview:self.borderForImage];
+    UIImage *blurredImage = [self blurBackground:self.view];
+    self.blurredBackground = [[UIImageView alloc] initWithImage:blurredImage];
+    self.blurredBackground.alpha = 0.0;
+    [self.view addSubview:self.blurredBackground];
     
-    self.fullScreenImage = [[UIImageView alloc] initWithFrame:selectedCell.frame];
-    self.fullScreenImage.hidden = NO;
-    self.fullScreenImage.image = self.currentlyViewingPhoto.image;
+    self.overlay = [[OverlayView alloc] initWithPhoto:self.currentlyViewingPhoto andCurrentView:self.view andText:@"Remove From Collection"];
+    self.overlay.delegate = self;
+    //
+    //    self.overlay.frame = CGRectMake(0.0, 0.0, self.overlay.frame.size.width, self.overlay.frame.size.height);
     
-    [self.fullScreenImage setClipsToBounds:YES];
-    [self.fullScreenImage setContentMode:UIViewContentModeScaleAspectFit];
+    self.overlay.alpha = 0.0;
+    [self.view addSubview:self.overlay];
     
-    [self.view addSubview:self.fullScreenImage];
-    
-    float width = self.view.frame.size.width - 40;
-    float aspectRatio = self.fullScreenImage.frame.size.height / self.fullScreenImage.frame.size.width;
-    float height = width * aspectRatio;
-    float originX = self.view.center.x - (width / 2);
-    float originY = self.view.center.y - (height / 2);
-    
-    self.removeFromGallery = [[UILabel alloc] initWithFrame:CGRectMake(originX - 10, self.view.frame.size.height + 60.0, width + 20, 50.0)];
-    self.removeFromGallery.backgroundColor = self.borderForImage.backgroundColor;
-    self.removeFromGallery.text = @"Remove From Gallery";
-    self.removeFromGallery.textColor = [UIColor redColor ];
-    self.removeFromGallery.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.removeFromGallery];
-    
-    
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullScreenImageTapped:)];
-    
-    [self.view addGestureRecognizer:singleTap];
-    
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        self.currentlyViewingPhoto.image = [self.currentlyViewingPhoto imageForScaling:self.currentlyViewingPhoto.image scaledToSize:CGSizeMake(width, height)];
-        self.removeFromGallery.frame = CGRectMake(originX - 10, originY + height + 15.0, width + 20, 50.0);
-        self.fullScreenImage.frame = CGRectMake(originX, originY, width, height);
-        self.borderForImage.frame = CGRectMake(originX - 10, originY - 10, width + 20, height + 20);
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.blurredBackground.alpha = 1.0;
+        self.overlay.alpha = 1.0;
+        //        self.overlay.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.width);
     } completion:nil];
-    
-    
     
 }
 
+- (void)addOrRemoveTapped {
+    [self.favorites removeObjectIdenticalTo:self.currentlyViewingPhoto];
+    
+    [self saveToFavorites];
+    
+    [self.collectionView reloadData];
+}
 
-- (void) fullScreenImageTapped:(UITapGestureRecognizer *)recognizer {
-    CGPoint tapLocation = [recognizer locationInView:[recognizer.view superview]];
-    
-    if (CGRectContainsPoint(self.fullScreenImage.frame, tapLocation)) {
-        NSLog(@"User tapped image");
-    } else if (CGRectContainsPoint(self.removeFromGallery.frame, tapLocation)){
-        NSLog(@"User tapped remove button");
-        [self removeFromFavorites];
-    } else {
-        [UIView animateWithDuration:0.2 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.fullScreenImage.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 0.0, 0.0);
-            self.fullScreenImage.alpha = 0.0;
-            self.borderForImage.frame = CGRectMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2, 0.0, 0.0);
-            self.borderForImage.alpha = 0.0;
-            self.removeFromGallery.frame = CGRectMake(self.removeFromGallery.frame.origin.x, self.removeFromGallery.frame.origin.y + 200, self.removeFromGallery.frame.size.width, 50.0);
-            
-        } completion:^(BOOL finished) {
-            self.fullScreenImage.hidden = YES;
-            self.borderForImage.hidden = YES;
-            [self.fullScreenImage removeFromSuperview];
-            [self.borderForImage removeFromSuperview];
-        }];
-        
-        
-    }
+- (void)exitButtonTapped {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.overlay.alpha = 0.0;
+        self.blurredBackground.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.overlay removeFromSuperview];
+        [self.blurredBackground removeFromSuperview];
+    }];
+}
+
+
+- (UIImage *)blurBackground:(UIView *)view
+{
+    UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
+    [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:YES];
+    UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     
+    CIImage *inputImage = [CIImage imageWithCGImage:snapshot.CGImage];
+    
+    // Apply Affine-Clamp filter to stretch the image so that it does not
+    // look shrunken when gaussian blur is applied
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
+    [clampFilter setValue:inputImage forKey:@"inputImage"];
+    [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    
+    // Apply gaussian blur filter with radius of 30
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
+    [gaussianBlurFilter setValue:clampFilter.outputImage forKey: @"inputImage"];
+    [gaussianBlurFilter setValue:@20 forKey:@"inputRadius"];
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:gaussianBlurFilter.outputImage fromRect:[inputImage extent]];
+    
+    // Set up output context.
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    CGContextRef outputContext = UIGraphicsGetCurrentContext();
+    
+    // Invert image coordinates
+    CGContextScaleCTM(outputContext, 1.0, -1.0);
+    CGContextTranslateCTM(outputContext, 0, -self.view.frame.size.height);
+    
+    // Draw base image.
+    CGContextDrawImage(outputContext, self.view.frame, cgImage);
+    
+    // Apply dark tint
+    CGContextSaveGState(outputContext);
+    CGContextSetFillColorWithColor(outputContext, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor);
+    CGContextFillRect(outputContext, self.view.frame);
+    CGContextRestoreGState(outputContext);
+    
+    // Output image is ready.
+    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return outputImage;
 }
 
 
@@ -126,9 +144,6 @@
     [userDefaults synchronize];
     
 }
-
-
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     

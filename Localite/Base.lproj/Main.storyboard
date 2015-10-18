@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Locality-->
+        <!--Map-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="MapViewController" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                             <constraint firstItem="70y-Rx-kRy" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="ogC-I9-8dn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Locality" image="bluepin" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="ic_map" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="mapView" destination="SQN-O0-NP8" id="tIH-Po-Rdh"/>
                         <outlet property="spinner" destination="Ebo-lX-Is1" id="Od2-BL-lrV"/>
@@ -125,23 +125,27 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="localitebanner" translatesAutoresizingMaskIntoConstraints="NO" id="HUl-Ik-h8D">
                                 <rect key="frame" x="0.0" y="20" width="600" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="HUl-Ik-h8D" secondAttribute="height" multiplier="75:7" id="gNs-16-pfZ"/>
+                                    <constraint firstAttribute="width" secondItem="HUl-Ik-h8D" secondAttribute="height" multiplier="75:7" id="NIK-qq-vxL"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenbar" translatesAutoresizingMaskIntoConstraints="NO" id="lwX-zW-g4Q">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="lwX-zW-g4Q" secondAttribute="height" multiplier="30:1" id="HaD-iE-dSU"/>
+                                    <constraint firstAttribute="height" constant="20" id="UnK-SL-n56"/>
                                 </constraints>
                             </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UrS-2s-lTE">
                                 <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="4sm-dA-Oee"/>
+                                    <constraint firstAttribute="height" constant="37" id="9cE-VG-aBq"/>
+                                </constraints>
                                 <color key="color" red="0.14509803921568626" green="0.47843137254901957" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" backgroundImage="greenbar" translatesAutoresizingMaskIntoConstraints="NO" id="gXk-gv-FhQ">
                                 <rect key="frame" x="0.0" y="76" width="600" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="fpQ-D3-b4c"/>
+                                    <constraint firstAttribute="height" constant="44" id="NNx-Zt-jwG"/>
                                 </constraints>
                                 <color key="barTintColor" red="0.14509803921568626" green="0.47843137254901957" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -150,12 +154,12 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNJ-xS-fKW">
-                                <rect key="frame" x="20" y="34" width="25" height="25"/>
+                                <rect key="frame" x="555" y="85" width="25" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="94p-aH-PYM"/>
-                                    <constraint firstAttribute="height" constant="25" id="GdO-87-nds"/>
+                                    <constraint firstAttribute="width" constant="25" id="dxT-ka-Vjb"/>
+                                    <constraint firstAttribute="height" constant="25" id="meW-Gc-m3t"/>
                                 </constraints>
-                                <state key="normal" image="refresh"/>
+                                <state key="normal" image="ic_refresh"/>
                                 <connections>
                                     <action selector="onRefreshButtonPressed:" destination="nt7-mC-zdY" eventType="touchUpInside" id="d1F-NG-OEB"/>
                                 </connections>
@@ -163,26 +167,26 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="UrS-2s-lTE" firstAttribute="centerX" secondItem="xAV-6x-5yJ" secondAttribute="centerX" id="3lL-YV-qBg"/>
-                            <constraint firstItem="UrS-2s-lTE" firstAttribute="centerY" secondItem="xAV-6x-5yJ" secondAttribute="centerY" id="99c-CO-yof"/>
-                            <constraint firstItem="HUl-Ik-h8D" firstAttribute="top" secondItem="wNJ-xS-fKW" secondAttribute="bottom" constant="-39" id="CTm-Rf-bZX"/>
-                            <constraint firstItem="gXk-gv-FhQ" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="HMq-0F-lJB"/>
-                            <constraint firstAttribute="trailing" secondItem="lwX-zW-g4Q" secondAttribute="trailing" id="Lc4-gX-cwb"/>
-                            <constraint firstItem="KUh-gb-X8i" firstAttribute="top" secondItem="gXk-gv-FhQ" secondAttribute="bottom" id="OeC-Js-EmA"/>
-                            <constraint firstItem="lwX-zW-g4Q" firstAttribute="top" secondItem="xAV-6x-5yJ" secondAttribute="top" id="OtE-C2-zA9"/>
-                            <constraint firstAttribute="trailing" secondItem="HUl-Ik-h8D" secondAttribute="trailing" id="Ouz-xy-1mG"/>
-                            <constraint firstAttribute="trailing" secondItem="gXk-gv-FhQ" secondAttribute="trailing" id="TqM-kV-lvt"/>
-                            <constraint firstItem="KUh-gb-X8i" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="WQq-dj-QyQ"/>
-                            <constraint firstItem="lwX-zW-g4Q" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="f3p-iW-PfC"/>
-                            <constraint firstItem="wNJ-xS-fKW" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leadingMargin" id="gEZ-al-lNu"/>
-                            <constraint firstItem="HUl-Ik-h8D" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="geE-yc-xyb"/>
-                            <constraint firstItem="HUl-Ik-h8D" firstAttribute="top" secondItem="lwX-zW-g4Q" secondAttribute="bottom" id="oZU-Gq-Ybb"/>
-                            <constraint firstAttribute="trailing" secondItem="KUh-gb-X8i" secondAttribute="trailing" id="qSq-WE-W33"/>
-                            <constraint firstAttribute="bottom" secondItem="KUh-gb-X8i" secondAttribute="bottom" id="vyZ-RG-Yrp"/>
-                            <constraint firstItem="gXk-gv-FhQ" firstAttribute="top" secondItem="HUl-Ik-h8D" secondAttribute="bottom" id="z8Q-I1-WWI"/>
+                            <constraint firstAttribute="bottom" secondItem="KUh-gb-X8i" secondAttribute="bottom" id="0rK-Bc-YNz"/>
+                            <constraint firstItem="wNJ-xS-fKW" firstAttribute="centerY" secondItem="gXk-gv-FhQ" secondAttribute="centerY" id="64J-1E-8DH"/>
+                            <constraint firstAttribute="trailing" secondItem="KUh-gb-X8i" secondAttribute="trailing" id="DRK-B7-xDJ"/>
+                            <constraint firstItem="wNJ-xS-fKW" firstAttribute="trailing" secondItem="xAV-6x-5yJ" secondAttribute="trailingMargin" id="I5n-QR-qq3"/>
+                            <constraint firstItem="HUl-Ik-h8D" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="JFX-zX-4gV"/>
+                            <constraint firstItem="KUh-gb-X8i" firstAttribute="top" secondItem="gXk-gv-FhQ" secondAttribute="bottom" id="K8s-T2-TjU"/>
+                            <constraint firstItem="gXk-gv-FhQ" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="Qk2-1r-8rr"/>
+                            <constraint firstItem="gXk-gv-FhQ" firstAttribute="top" secondItem="HUl-Ik-h8D" secondAttribute="bottom" id="Uwy-rP-Bgg"/>
+                            <constraint firstItem="UrS-2s-lTE" firstAttribute="centerX" secondItem="xAV-6x-5yJ" secondAttribute="centerX" id="VsL-Mr-IDR"/>
+                            <constraint firstAttribute="trailing" secondItem="lwX-zW-g4Q" secondAttribute="trailing" id="XLz-WM-2j3"/>
+                            <constraint firstAttribute="trailing" secondItem="HUl-Ik-h8D" secondAttribute="trailing" id="YpR-rV-DQZ"/>
+                            <constraint firstItem="lwX-zW-g4Q" firstAttribute="top" secondItem="xAV-6x-5yJ" secondAttribute="top" id="czE-56-QEK"/>
+                            <constraint firstItem="HUl-Ik-h8D" firstAttribute="top" secondItem="lwX-zW-g4Q" secondAttribute="bottom" id="kd8-MW-2GR"/>
+                            <constraint firstAttribute="trailing" secondItem="gXk-gv-FhQ" secondAttribute="trailing" id="rCi-Kb-FL1"/>
+                            <constraint firstItem="KUh-gb-X8i" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="tPE-XX-HgR"/>
+                            <constraint firstItem="lwX-zW-g4Q" firstAttribute="leading" secondItem="xAV-6x-5yJ" secondAttribute="leading" id="tSN-9r-1dn"/>
+                            <constraint firstItem="UrS-2s-lTE" firstAttribute="centerY" secondItem="xAV-6x-5yJ" secondAttribute="centerY" id="w82-7I-juy"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Browse" image="grid" id="QZi-rk-4ds"/>
+                    <tabBarItem key="tabBarItem" title="Browse" image="ic_browse" id="QZi-rk-4ds"/>
                     <connections>
                         <outlet property="collectionView" destination="KUh-gb-X8i" id="41q-OT-neD"/>
                         <outlet property="searchBar" destination="gXk-gv-FhQ" id="m4R-sp-CpX"/>
@@ -193,7 +197,7 @@
             </objects>
             <point key="canvasLocation" x="770" y="-315"/>
         </scene>
-        <!--Gallery-->
+        <!--Collection-->
         <scene sceneID="pPh-wc-wRl">
             <objects>
                 <viewController id="BZY-gm-vgv" customClass="GalleryViewController" sceneMemberID="viewController">
@@ -257,7 +261,7 @@
                             <constraint firstItem="whI-ai-dKn" firstAttribute="leading" secondItem="0I0-8q-HRO" secondAttribute="leading" id="zAm-k0-Z7C"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Gallery" image="bluestar" id="cos-NK-0Ph"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="ic_star" id="cos-NK-0Ph"/>
                     <connections>
                         <outlet property="collectionView" destination="qLu-eq-fB4" id="FTO-RB-GtJ"/>
                     </connections>
@@ -268,11 +272,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bluepin" width="25" height="25"/>
-        <image name="bluestar" width="25" height="25"/>
         <image name="greenbar" width="1536" height="129"/>
-        <image name="grid" width="25" height="25"/>
+        <image name="ic_browse" width="24" height="24"/>
+        <image name="ic_map" width="24" height="24"/>
+        <image name="ic_refresh" width="24" height="24"/>
+        <image name="ic_star" width="24" height="24"/>
         <image name="localitebanner" width="1536" height="130"/>
-        <image name="refresh" width="25" height="25"/>
     </resources>
 </document>

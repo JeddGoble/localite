@@ -40,6 +40,9 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:37.0 / 255.0 green:122.0 / 255.0 blue:103.0 / 255.0 alpha:1.0]];
+    
+    
     [self loadFavorites];
     
     if (self.favorites == nil) {
@@ -170,9 +173,13 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
 }
 
 - (void)exitButtonTapped {
-    [self.overlay removeFromSuperview];
-    
-    [self.blurredBackground removeFromSuperview];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.overlay.alpha = 0.0;
+        self.blurredBackground.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.overlay removeFromSuperview];
+        [self.blurredBackground removeFromSuperview];
+    }];
 }
 
 

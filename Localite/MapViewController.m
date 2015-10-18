@@ -162,8 +162,13 @@
 }
 
 - (void)exitButtonTapped {
-    [self.overlay removeFromSuperview];
-    [self.blurredBackground removeFromSuperview];
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.overlay.alpha = 0.0;
+        self.blurredBackground.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.overlay removeFromSuperview];
+        [self.blurredBackground removeFromSuperview];
+    }];
 }
 
 
