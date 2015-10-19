@@ -21,6 +21,6 @@
 @property (strong, nonatomic) NSString *photoID;
 @property (nonatomic) BOOL inFavorites;
 
-- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize;;
+- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 @end
