@@ -114,14 +114,14 @@
 		04327F941BD457F500C4FA46 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				04F238551BD03DDC00FAD68C /* MapViewController.h */,
-				04F238561BD03DDC00FAD68C /* MapViewController.m */,
-				04327F911BD433DB00C4FA46 /* OverlayView.h */,
-				04327F921BD433DB00C4FA46 /* OverlayView.m */,
-				04F238821BD0439C00FAD68C /* GalleryViewController.h */,
-				04F238831BD0439C00FAD68C /* GalleryViewController.m */,
 				046DB94F1BD0767100F01BEB /* BrowseViewController.h */,
 				046DB9501BD0767100F01BEB /* BrowseViewController.m */,
+				04F238551BD03DDC00FAD68C /* MapViewController.h */,
+				04F238561BD03DDC00FAD68C /* MapViewController.m */,
+				04F238821BD0439C00FAD68C /* GalleryViewController.h */,
+				04F238831BD0439C00FAD68C /* GalleryViewController.m */,
+				04327F911BD433DB00C4FA46 /* OverlayView.h */,
+				04327F921BD433DB00C4FA46 /* OverlayView.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

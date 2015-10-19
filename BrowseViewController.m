@@ -14,22 +14,22 @@
 #import "MapViewController.h"
 #import "CustomCollectionViewCell.h"
 #import "OverlayView.h"
+#import "GalleryViewController.h"
 
 @interface BrowseViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, APIHandlerProtocol, UISearchBarDelegate, LocationHandlerDelegate, CLLocationManagerDelegate, UITabBarControllerDelegate, CustomCollectionViewCellDelegate, OverlayDelegate>
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) NSMutableArray *displays;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) APIHandler *apiHandler;
 @property (strong, nonatomic) Photo *photoHandler;
-@property (strong, nonatomic) CLLocation *userLocation;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-@property (strong, nonatomic) NSMutableArray *favorites;
 @property (strong, nonatomic) Photo *currentlyViewingPhoto;
 @property (nonatomic) BOOL isFullscreen;
 @property (strong, nonatomic) UIImageView *blurredBackground;
 @property (strong, nonatomic) OverlayView *overlay;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *userHashtagSegControl;
+@property (nonatomic) BOOL hashtagOrUser;
 
 @end
 
@@ -43,18 +43,12 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:37.0 / 255.0 green:122.0 / 255.0 blue:103.0 / 255.0 alpha:1.0]];
     
     
-    [self loadFavorites];
-    
-    if (self.favorites == nil) {
-        self.favorites = [NSMutableArray new];
-        
-    }
     
     self.isFullscreen = NO;
     
     
     [[LocationHandler getSharedInstance] setDelegate:self];
-    [[LocationHandler getSharedInstance] startUpdating];
+
     
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
@@ -79,12 +73,36 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     self.apiHandler = [APIHandler new];
     self.apiHandler.delegate = self;
     
-    double lat = 37.7833;
-    double lon = -122.4167;
+    self.tabBarController.delegate = self;
     
-    double span = 1.0;
+//    double lat = 37.7833;
+//    double lon = -122.4167;
+//    
+//    double span = 1.0;
+//    
+//    [self.apiHandler getPhotosWithLocation:lat andLon:lon andSpan:span];
     
-    [self.apiHandler getPhotosWithLocation:lat andLon:lon andSpan:span];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self loadFavorites];
+    
+    self.userHashtagSegControl.alpha = 0;
+    self.userHashtagSegControl.hidden = YES;
+    
+    if (self.favorites == nil) {
+        self.favorites = [NSMutableArray new];
+        
+    }
+    
+    [[LocationHandler getSharedInstance] startUpdating];
+    [self.collectionView reloadData];
+    
+    self.tabBarController.delegate = self;
+    
+    
+    
     
 }
 
@@ -106,7 +124,20 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [userDefaults setObject:encodedFavorites forKey:@"Favorites"];
     [userDefaults synchronize];
     
+    
+    
 }
+
+/*
+ 
+ NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+ NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
+ self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
+ 
+ 
+ 
+ 
+ */
 
 
 - (void)updateUserLocation:(CLLocation *)location {
@@ -117,16 +148,17 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     self.userLocation = locations.firstObject;
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    
-    MapViewController *tempVC = viewController;
-    tempVC.displays = self.displays;
-    
-}
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [self.apiHandler getPhotosWithKeyword:self.searchBar.text];
+    if (self.userHashtagSegControl.selectedSegmentIndex == 0) {
+        [self.apiHandler getPhotosWithKeyword:self.searchBar.text hashtagOrUser:YES];
+    } else {
+        [self.apiHandler getPhotosWithUsername:self.searchBar.text];
+    }
+    
+    
+    
+    [self.searchBar resignFirstResponder];
     
     [self.collectionView reloadData];
 }
@@ -144,6 +176,12 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:tapLocation];
     
     self.currentlyViewingPhoto = [self.displays objectAtIndex:indexPath.item];
+
+    for (Photo *photo in self.favorites) {
+        if ([photo.photoID isEqual:self.currentlyViewingPhoto.photoID]) {
+            self.currentlyViewingPhoto.inFavorites = YES;
+        }
+    }
     
     UIImage *blurredImage = [self blurBackground:self.view];
     self.blurredBackground = [[UIImageView alloc] initWithImage:blurredImage];
@@ -167,7 +205,17 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
 }
 
 - (void)addOrRemoveTapped {
-    [self.favorites insertObject:self.currentlyViewingPhoto atIndex:0];
+    if (self.currentlyViewingPhoto.inFavorites) {
+        [self.favorites removeObjectIdenticalTo:self.currentlyViewingPhoto];
+        self.currentlyViewingPhoto.inFavorites = NO;
+        self.overlay.addOrRemoveLabel.text = [NSString stringWithFormat:@"Add To Collection"];
+        self.overlay.addOrRemoveLabel.textColor = [UIColor colorWithRed:155.0 / 255.0 green: 107.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
+    } else {
+        [self.favorites addObject:self.currentlyViewingPhoto];
+        self.currentlyViewingPhoto.inFavorites = YES;
+        self.overlay.addOrRemoveLabel.text = [NSString stringWithFormat:@"Remove From Collection"];
+        self.overlay.addOrRemoveLabel.textColor = [UIColor redColor];
+    }
     
     [self saveToFavorites];
 }
@@ -299,6 +347,27 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     return inset;
     
 }
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self.userHashtagSegControl.alpha = 0.0;
+    self.userHashtagSegControl.hidden = NO;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.userHashtagSegControl.alpha = 0.9;
+    }];
+    
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.userHashtagSegControl.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        self.userHashtagSegControl.hidden = YES;
+    }];
+    
+}
+
+
 - (IBAction)onRefreshButtonPressed:(UIButton *)sender {
     if ([self.searchBar.text isEqual:@""]) {
         [[LocationHandler getSharedInstance] startUpdating];
@@ -310,9 +379,19 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         [self.apiHandler getPhotosWithLocation:lat andLon:lon andSpan:0.5];
         
         [[LocationHandler getSharedInstance] stopUpdating];
+        [self.searchBar resignFirstResponder];
     } else {
-        [self.apiHandler getPhotosWithKeyword:self.searchBar.text];
+        if (self.userHashtagSegControl.selectedSegmentIndex == 0) {
+            [self.apiHandler getPhotosWithKeyword:self.searchBar.text hashtagOrUser:self.hashtagOrUser];
+
+        } else {
+            [self.apiHandler getPhotosWithUsername:self.searchBar.text];;
+        }
+        
+
     }
+    
+    [self.searchBar resignFirstResponder];
 
 }
 
@@ -326,6 +405,11 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self saveToFavorites];
+}
+
 - (void)failedWithError:(NSError *)error {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Could not find your location. Try again later." preferredStyle:UIAlertControllerStyleAlert];
     
@@ -337,6 +421,17 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
+
+- (IBAction)segControlDidChange:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        self.hashtagOrUser = YES;
+    } else {
+        self.hashtagOrUser = NO;
+    }
+    
+    
+}
+
 
 
 #pragma mark <UICollectionViewDelegate>

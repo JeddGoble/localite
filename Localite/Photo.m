@@ -44,7 +44,6 @@
     self.coordinates = CLLocationCoordinate2DMake(latitude, longitude);
     
     return self;
-    
 }
 
 

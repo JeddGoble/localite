@@ -10,4 +10,7 @@
 
 @interface GalleryViewController : UIViewController
 
+@property (strong, nonatomic) NSMutableArray *displays;
+@property (strong, nonatomic) NSMutableArray *favorites;
+
 @end

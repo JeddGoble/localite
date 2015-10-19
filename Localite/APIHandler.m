@@ -30,8 +30,6 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     
     NSLog(@"%@", stringForURL);
     
-//    NSString *stringForURL = [NSString stringWithFormat:@"https://api.instagram.com/v1/media/search?lat=%f&lng=%f&access_token=%@", latitude, longitude, accessToken];
-    
     NSURL *url = [NSURL URLWithString:stringForURL];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -48,11 +46,43 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [task resume];
 }
 
-- (void) getPhotosWithKeyword:(NSString *)keyword {
+- (void) getPhotosWithUsername:(NSString *)username {
+    NSString *stringForURL = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/search?q=%@&access_token=%@", username, accessToken];
+    
+    NSLog(@"User Search: %@", stringForURL);
+    
+    NSURL *url = [NSURL URLWithString:stringForURL];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSArray *usersResults = jsonDict[@"data"];
+            NSDictionary *firstUser = [usersResults objectAtIndex:0];
+            NSString *userID = firstUser[@"id"];
+            [self getPhotosWithKeyword:[NSString stringWithFormat:@"%@", userID] hashtagOrUser:NO];
+        });
+    }];
+    
+    [task resume];
+    
+    
+}
+
+- (void) getPhotosWithKeyword:(NSString *)keyword hashtagOrUser:(BOOL)hashtag {
     
     [self.delegate startSpinner];
     
-    NSString *stringForURL = [NSString stringWithFormat:@"https://api.instagram.com/v1/tags/%@/media/recent?access_token=%@", keyword, accessToken];
+    NSString *stringForURL = [NSString new];
+    
+    if (hashtag) {
+        stringForURL = [NSString stringWithFormat:@"https://api.instagram.com/v1/tags/%@/media/recent?access_token=%@", keyword, accessToken];
+    } else {
+        stringForURL = [NSString stringWithFormat:@"https://api.instagram.com/v1/users/%@/media/recent/?access_token=%@", keyword, accessToken];
+    }
+
     
     NSLog(@"%@", stringForURL);
     
@@ -87,6 +117,9 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         NSString *imageStringForURL = [NSString stringWithFormat:@"%@", resolutionData[@"url"]];
         NSURL *imageURL = [NSURL URLWithString:imageStringForURL];
         photo.imageURL = imageURL;
+        photo.photoID = photoData[@"id"];
+        
+        
         
         if (photoData[@"location"] != [NSNull null]) {
             NSDictionary *locations = [[NSDictionary alloc] initWithDictionary:photoData[@"location"]];
@@ -113,7 +146,8 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     for (Photo *photo in displays) {
         NSURLRequest *request = [NSURLRequest requestWithURL:photo.imageURL];
         
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession] downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                      
             photo.image = [UIImage new];
             photo.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:photo.imageURL]];
             

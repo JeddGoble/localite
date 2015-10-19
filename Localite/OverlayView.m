@@ -26,7 +26,6 @@
     float originY = (view.center.y - (height / 2)) - 30.0;
     
     
-    
     UIView *borderForImage = [[UIView alloc] initWithFrame:CGRectMake(originX, originY, width, height)];
     borderForImage.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7];
     [self addSubview:borderForImage];
@@ -42,8 +41,15 @@
     
     self.addOrRemoveLabel = [[UILabel alloc] initWithFrame:CGRectMake(originX, originY + height + 20, width, 50.0)];
     self.addOrRemoveLabel.backgroundColor = borderForImage.backgroundColor;
-    self.addOrRemoveLabel.text = text;
-    self.addOrRemoveLabel.textColor = [UIColor colorWithRed:155.0 / 255.0 green: 107.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
+    
+    if (photo.inFavorites) {
+        self.addOrRemoveLabel.text = [NSString stringWithFormat:@"Remove From Collection"];
+        self.addOrRemoveLabel.textColor = [UIColor redColor];
+    } else {
+        self.addOrRemoveLabel.text = [NSString stringWithFormat:@"Add To Collection"];
+        self.addOrRemoveLabel.textColor = [UIColor colorWithRed:155.0 / 255.0 green: 107.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
+    }
+    
     self.addOrRemoveLabel.clipsToBounds = YES;
     self.addOrRemoveLabel.layer.cornerRadius = 25.0;
     self.addOrRemoveLabel.textAlignment = NSTextAlignmentCenter;

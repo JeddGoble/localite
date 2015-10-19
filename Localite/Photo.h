@@ -18,9 +18,9 @@
 @property (strong, nonatomic) NSURL *imageURL;
 @property (strong, nonatomic) UIImage *image;
 @property (nonatomic) CLLocationCoordinate2D coordinates;
+@property (strong, nonatomic) NSString *photoID;
+@property (nonatomic) BOOL inFavorites;
 
-- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize;
-
-- (UIView *) requestOverlayWithPhoto:(Photo *)photo andCurrentView:(UIView *)view andText:(NSString *)text;
+- (UIImage *)imageForScaling:(UIImage *)image scaledToSize:(CGSize)newSize;;
 
 @end

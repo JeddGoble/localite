@@ -18,7 +18,7 @@
 #import "OverlayView.h"
 
 
-@interface MapViewController () <MKMapViewDelegate, LocationHandlerDelegate, APIHandlerProtocol, CLLocationManagerDelegate, OverlayDelegate>
+@interface MapViewController () <MKMapViewDelegate, LocationHandlerDelegate, APIHandlerProtocol, CLLocationManagerDelegate, OverlayDelegate, UITabBarControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
@@ -30,6 +30,7 @@
 @property (strong, nonatomic) UILabel *addToGallery;
 @property (strong, nonatomic) OverlayView *overlay;
 @property (strong, nonatomic) UIImageView *blurredBackground;
+@property (strong, nonatomic) Photo *currentlyViewingPhoto;
 
 
 @end
@@ -48,6 +49,20 @@
     
     self.mapView.showsUserLocation = YES;
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self loadFavorites];
+    
+    self.tabBarController.delegate = self;
+}
+
+- (void) loadFavorites {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
+    self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
     
 }
 
@@ -96,11 +111,10 @@
 }
 
 - (void)addImageToArray:(Photo *)photo {
+    
     [self.displays addObject:photo];
     
     [self addPinToMap:photo];
-    
-    
     
 }
 
@@ -141,6 +155,9 @@
     self.blurredBackground.alpha = 0.0;
     [self.view addSubview:self.blurredBackground];
     
+    self.currentlyViewingPhoto = [Photo new];
+    self.currentlyViewingPhoto = view.photo;
+    
     self.overlay = [[OverlayView alloc] initWithPhoto:view.photo andCurrentView:self.view andText:@"Add To Collection"];
     self.overlay.delegate = self;
 //    
@@ -158,6 +175,28 @@
 }
 
 - (void)addOrRemoveTapped {
+    if (self.currentlyViewingPhoto.inFavorites) {
+        [self.favorites removeObjectIdenticalTo:self.currentlyViewingPhoto];
+        self.currentlyViewingPhoto.inFavorites = NO;
+        self.overlay.addOrRemoveLabel.text = [NSString stringWithFormat:@"Add To Collection"];
+        self.overlay.addOrRemoveLabel.textColor = [UIColor colorWithRed:155.0 / 255.0 green: 107.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
+    } else {
+        [self.favorites addObject:self.currentlyViewingPhoto];
+        self.currentlyViewingPhoto.inFavorites = YES;
+        self.overlay.addOrRemoveLabel.text = [NSString stringWithFormat:@"Remove From Collection"];
+        self.overlay.addOrRemoveLabel.textColor = [UIColor redColor];
+    }
+    
+    [self saveToFavorites];
+    
+}
+
+- (void) saveToFavorites {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *encodedFavorites = [NSKeyedArchiver archivedDataWithRootObject:self.favorites];
+    [userDefaults setObject:encodedFavorites forKey:@"Favorites"];
+    [userDefaults synchronize];
     
 }
 
@@ -223,6 +262,11 @@
     return outputImage;
 }
 
+- (IBAction)onRefreshButtonTapped:(UIButton *)sender {
+    
+    [[LocationHandler getSharedInstance] startUpdating];
+    
+}
 
 
 

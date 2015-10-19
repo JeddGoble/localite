@@ -12,9 +12,8 @@
 #import "OverlayView.h"
 
 
-@interface GalleryViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CustomCollectionViewCellDelegate, OverlayDelegate>
+@interface GalleryViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, CustomCollectionViewCellDelegate, OverlayDelegate, UITabBarControllerDelegate>
 
-@property (strong, nonatomic) NSMutableArray *favorites;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) Photo *currentlyViewingPhoto;
 @property (strong, nonatomic) UIView *borderForImage;
@@ -28,9 +27,26 @@
 @implementation GalleryViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self loadFavorites];
     
+    [super viewDidLoad];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self loadFavorites];
+    [self.collectionView reloadData];
+    
+    self.tabBarController.delegate = self;
+    
+    
+    
+}
+
+
+- (void) loadFavorites {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
+    self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
 }
 
 
@@ -62,11 +78,17 @@
 }
 
 - (void)addOrRemoveTapped {
+    
+    
     [self.favorites removeObjectIdenticalTo:self.currentlyViewingPhoto];
+    
+    self.currentlyViewingPhoto.inFavorites = NO;
     
     [self saveToFavorites];
     
     [self.collectionView reloadData];
+    
+    
 }
 
 - (void)exitButtonTapped {
@@ -202,12 +224,6 @@
 
 - (NSURL *) documentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
-}
-
-- (void) loadFavorites {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
-    self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

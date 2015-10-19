@@ -25,6 +25,8 @@
 
 - (void) getPhotosWithLocation:(double)latitude andLon:(double)longitude andSpan:(double)span;
 
-- (void) getPhotosWithKeyword:(NSString *)keyword;
+- (void) getPhotosWithKeyword:(NSString *)keyword hashtagOrUser:(BOOL)hashtag;
+
+- (void) getPhotosWithUsername:(NSString *)username;
 
 @end
