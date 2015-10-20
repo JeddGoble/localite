@@ -13,51 +13,50 @@ static LocationHandler *DefaultManager = nil;
 
 @interface LocationHandler ()
 
-- (void) initiate;
-
 @end
 
 @implementation LocationHandler
 
 + (id)getSharedInstance {
-    if (!DefaultManager) {
-        DefaultManager = [[self allocWithZone:NULL] init];
-        [DefaultManager initiate];
+    static LocationHandler *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc]init];
+    });
+    return instance;
+}
+
+- (id)init {
+    self = [super init];
+    if(self != nil) {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.distanceFilter = 30; // meters
+        self.locationManager.delegate = self;
     }
-    return DefaultManager;
+    return self;
 }
 
-- (void)initiate{
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-}
-
-- (void)startUpdating{
-    locationManager.delegate = self;
-    
-    [locationManager startUpdatingLocation];
+- (void)startUpdating {
+    NSLog(@"Location updates started");
+    [self.locationManager startUpdatingLocation];
+    [self.locationManager requestWhenInUseAuthorization];
 }
 
 - (void) stopUpdating{
-    [locationManager stopUpdatingLocation];
+    NSLog(@"Location updates stopped");
+    [self.locationManager stopUpdatingLocation];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:
-(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
-    
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    NSLog(@"Delegate method should be getting called now");
+    [self.delegate updateUserLocation:locations.firstObject];
+    [self setCurrentLocation:locations.firstObject];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [self.delegate failedWithError:error];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    [self.delegate updateUserLocation:locations.firstObject];
-    
-    
-    
-    
-//    [locationManager stopUpdatingLocation];
 }
 
 

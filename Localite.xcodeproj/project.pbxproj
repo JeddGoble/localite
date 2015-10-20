@@ -185,10 +185,10 @@
 		04F2384B1BD03DDC00FAD68C /* Localite */ = {
 			isa = PBXGroup;
 			children = (
-				04327F971BD4584400C4FA46 /* Custom Objects */,
-				04327F961BD4583700C4FA46 /* Handlers */,
-				04327F951BD4581300C4FA46 /* Custom Subclasses */,
 				04327F941BD457F500C4FA46 /* View Controllers */,
+				04327F961BD4583700C4FA46 /* Handlers */,
+				04327F971BD4584400C4FA46 /* Custom Objects */,
+				04327F951BD4581300C4FA46 /* Custom Subclasses */,
 				04F238581BD03DDC00FAD68C /* Main.storyboard */,
 				04F2385B1BD03DDC00FAD68C /* Assets.xcassets */,
 				04F2384C1BD03DDC00FAD68C /* Supporting Files */,

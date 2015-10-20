@@ -23,11 +23,9 @@
 
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) APIHandler *apiHandler;
-@property (strong, nonatomic) LocationHandler *locationHandler;
 @property (strong, nonatomic) UIImage *imageForAnnotation;
 @property (strong, nonatomic) UIView *borderForImage;
 @property (strong, nonatomic) UIImageView *fullScreenImage;
-@property (strong, nonatomic) UILabel *addToGallery;
 @property (strong, nonatomic) OverlayView *overlay;
 @property (strong, nonatomic) UIImageView *blurredBackground;
 @property (strong, nonatomic) Photo *currentlyViewingPhoto;
@@ -39,16 +37,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[LocationHandler getSharedInstance] setDelegate:self];
-    [[LocationHandler getSharedInstance] startUpdating];
-    
+
     self.mapView.delegate = self;
-    self.apiHandler = [APIHandler new];
-    self.apiHandler.delegate = self;
-    
-    self.mapView.showsUserLocation = YES;
-    
+    self.mapView.showsUserLocation = YES;    
     
 }
 
@@ -56,49 +47,29 @@
     
     [self loadFavorites];
     
-    self.tabBarController.delegate = self;
+    [[LocationHandler getSharedInstance] startUpdating];
+    [[LocationHandler getSharedInstance] setDelegate:self];
+    
+    self.apiHandler = [APIHandler new];
+    self.apiHandler.delegate = self;
+
 }
+
+- (void)updateUserLocation:(CLLocation *)location {
+    if (location.coordinate.latitude != 0.0) {
+        [self.apiHandler getPhotosWithLocation:location.coordinate.latitude andLon:location.coordinate.longitude andSpan:0.5];
+    } else {
+        NSError *error = [NSError new];
+        [self failedWithError:error];
+    }
+}
+
+
 
 - (void) loadFavorites {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
     self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
-    
-}
-
-- (void)updateUserLocation:(CLLocation *)location {
-    
-    double span;
-    
-    if (self.mapView.region.span.longitudeDelta > 1.0) {
-        span = 0.01;
-    } else {
-        span = self.mapView.region.span.longitudeDelta;
-    }
-    
-    
-    CLLocationCoordinate2D userLocation = [location coordinate];
-    
-    MKCoordinateSpan coordinateSpan;
-    coordinateSpan.latitudeDelta = span;
-    coordinateSpan.longitudeDelta = span;
-    
-    MKCoordinateRegion region;
-    region.center = userLocation;
-    region.span = coordinateSpan;
-    
-    if (self.displays == nil) {
-        self.displays = [[NSMutableArray alloc] init];
-    }
-
-    
-    [self.apiHandler getPhotosWithLocation:userLocation.latitude andLon:userLocation.longitude andSpan:0.1];
-    
-    
-    [self.mapView setRegion:region animated:YES];
-    
-    [[LocationHandler getSharedInstance] stopUpdating];
-    
     
 }
 
@@ -158,7 +129,7 @@
     self.currentlyViewingPhoto = [Photo new];
     self.currentlyViewingPhoto = view.photo;
     
-    self.overlay = [[OverlayView alloc] initWithPhoto:view.photo andCurrentView:self.view andText:@"Add To Collection"];
+    self.overlay = [[OverlayView alloc] initWithPhoto:view.photo andCurrentView:self.view];
     self.overlay.delegate = self;
 //    
 //    self.overlay.frame = CGRectMake(0.0, 0.0, self.overlay.frame.size.width, self.overlay.frame.size.height);
@@ -223,43 +194,9 @@
     
     CIImage *inputImage = [CIImage imageWithCGImage:snapshot.CGImage];
     
-    // Apply Affine-Clamp filter to stretch the image so that it does not
-    // look shrunken when gaussian blur is applied
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
-    [clampFilter setValue:inputImage forKey:@"inputImage"];
-    [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    UIImage *blurredBackground = [OverlayView blurImage:self.view andSnapshop:inputImage];
     
-    // Apply gaussian blur filter with radius of 30
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
-    [gaussianBlurFilter setValue:clampFilter.outputImage forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:@20 forKey:@"inputRadius"];
-    
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef cgImage = [context createCGImage:gaussianBlurFilter.outputImage fromRect:[inputImage extent]];
-    
-    // Set up output context.
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    CGContextRef outputContext = UIGraphicsGetCurrentContext();
-    
-    // Invert image coordinates
-    CGContextScaleCTM(outputContext, 1.0, -1.0);
-    CGContextTranslateCTM(outputContext, 0, -self.view.frame.size.height);
-    
-    // Draw base image.
-    CGContextDrawImage(outputContext, self.view.frame, cgImage);
-    
-    // Apply dark tint
-    CGContextSaveGState(outputContext);
-    CGContextSetFillColorWithColor(outputContext, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor);
-    CGContextFillRect(outputContext, self.view.frame);
-    CGContextRestoreGState(outputContext);
-    
-    // Output image is ready.
-    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return outputImage;
+    return blurredBackground;
 }
 
 - (IBAction)onRefreshButtonTapped:(UIButton *)sender {
@@ -268,6 +205,32 @@
     
 }
 
+- (IBAction)onTargetButtonTapped:(UIButton *)sender {
+    if (self.mapView.userLocation.coordinate.latitude != 0.0) {
+        
+        double span;
+        
+        if (self.mapView.region.span.longitudeDelta > 0.5) {
+            span = 0.01;
+        } else {
+            span = self.mapView.region.span.longitudeDelta;
+        }
+        
+        MKCoordinateSpan coordinateSpan;
+        coordinateSpan.latitudeDelta = span;
+        coordinateSpan.longitudeDelta = span;
+        
+        MKCoordinateRegion region;
+        region.center = self.mapView.userLocation.coordinate;
+        region.span = coordinateSpan;
+        
+        [self.mapView setRegion:region animated:YES];
+    } else {
+        NSError *error = [NSError new];
+        [self failedWithError:error];
+    }
+    
+}
 
 
 - (void)failedWithError:(NSError *)error {

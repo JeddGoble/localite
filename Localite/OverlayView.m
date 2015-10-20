@@ -11,7 +11,7 @@
 
 @implementation OverlayView
 
-- (instancetype) initWithPhoto:(Photo *)photo andCurrentView:(UIView *)view andText:(NSString *)text {
+- (instancetype) initWithPhoto:(Photo *)photo andCurrentView:(UIView *)view {
     
     self = [super init];
     
@@ -75,6 +75,47 @@
     
 
     
+}
+
++ (UIImage *) blurImage:(UIView *)viewToBlur andSnapshop:(CIImage *)inputImage {
+    
+    // Apply Affine-Clamp filter to stretch the image so that it does not
+    // look shrunken when gaussian blur is applied
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
+    [clampFilter setValue:inputImage forKey:@"inputImage"];
+    [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    
+    // Apply gaussian blur filter with radius of 30
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
+    [gaussianBlurFilter setValue:clampFilter.outputImage forKey: @"inputImage"];
+    [gaussianBlurFilter setValue:@20 forKey:@"inputRadius"];
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:gaussianBlurFilter.outputImage fromRect:[inputImage extent]];
+    
+    // Set up output context.
+    UIGraphicsBeginImageContext(viewToBlur.frame.size);
+    CGContextRef outputContext = UIGraphicsGetCurrentContext();
+    
+    // Invert image coordinates
+    CGContextScaleCTM(outputContext, 1.0, -1.0);
+    CGContextTranslateCTM(outputContext, 0, -viewToBlur.frame.size.height);
+    
+    // Draw base image.
+    CGContextDrawImage(outputContext, viewToBlur.frame, cgImage);
+    
+    // Apply dark tint
+    CGContextSaveGState(outputContext);
+    CGContextSetFillColorWithColor(outputContext, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor);
+    CGContextFillRect(outputContext, viewToBlur.frame);
+    CGContextRestoreGState(outputContext);
+    
+    // Output image is ready.
+    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return outputImage;
 }
 
 

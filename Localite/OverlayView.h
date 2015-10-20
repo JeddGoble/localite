@@ -24,6 +24,8 @@
 
 @property (nonatomic, assign) id <OverlayDelegate> delegate;
 
-- (instancetype) initWithPhoto:(Photo *)photo andCurrentView:(UIView *)view andText:(NSString *)text;
+- (instancetype) initWithPhoto:(Photo *)photo andCurrentView:(UIView *)view;
+
++ (UIImage *) blurImage:(UIView *)viewToBlur andSnapshop:(CIImage *)inputImage;
 
 @end

@@ -13,7 +13,6 @@
 @interface MapViewController : UIViewController
 
 @property (strong, nonatomic) NSMutableArray *displays;
-@property (strong, nonatomic) CLLocation *userLocation;
 @property (strong, nonatomic) NSMutableArray *favorites;
 
 @end

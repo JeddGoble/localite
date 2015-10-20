@@ -16,9 +16,6 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) Photo *currentlyViewingPhoto;
-@property (strong, nonatomic) UIView *borderForImage;
-@property (strong, nonatomic) UIImageView *fullScreenImage;
-@property (strong, nonatomic) UILabel *removeFromGallery;
 @property (strong, nonatomic) UIImageView *blurredBackground;
 @property (strong, nonatomic) OverlayView *overlay;
 
@@ -35,10 +32,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self loadFavorites];
     [self.collectionView reloadData];
-    
-    self.tabBarController.delegate = self;
-    
-    
     
 }
 
@@ -61,7 +54,7 @@
     self.blurredBackground.alpha = 0.0;
     [self.view addSubview:self.blurredBackground];
     
-    self.overlay = [[OverlayView alloc] initWithPhoto:self.currentlyViewingPhoto andCurrentView:self.view andText:@"Remove From Collection"];
+    self.overlay = [[OverlayView alloc] initWithPhoto:self.currentlyViewingPhoto andCurrentView:self.view];
     self.overlay.delegate = self;
     //
     //    self.overlay.frame = CGRectMake(0.0, 0.0, self.overlay.frame.size.width, self.overlay.frame.size.height);
@@ -112,43 +105,9 @@
     
     CIImage *inputImage = [CIImage imageWithCGImage:snapshot.CGImage];
     
-    // Apply Affine-Clamp filter to stretch the image so that it does not
-    // look shrunken when gaussian blur is applied
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
-    [clampFilter setValue:inputImage forKey:@"inputImage"];
-    [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    UIImage *blurredBackground = [OverlayView blurImage:self.view andSnapshop:inputImage];
     
-    // Apply gaussian blur filter with radius of 30
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
-    [gaussianBlurFilter setValue:clampFilter.outputImage forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:@20 forKey:@"inputRadius"];
-    
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef cgImage = [context createCGImage:gaussianBlurFilter.outputImage fromRect:[inputImage extent]];
-    
-    // Set up output context.
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    CGContextRef outputContext = UIGraphicsGetCurrentContext();
-    
-    // Invert image coordinates
-    CGContextScaleCTM(outputContext, 1.0, -1.0);
-    CGContextTranslateCTM(outputContext, 0, -self.view.frame.size.height);
-    
-    // Draw base image.
-    CGContextDrawImage(outputContext, self.view.frame, cgImage);
-    
-    // Apply dark tint
-    CGContextSaveGState(outputContext);
-    CGContextSetFillColorWithColor(outputContext, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor);
-    CGContextFillRect(outputContext, self.view.frame);
-    CGContextRestoreGState(outputContext);
-    
-    // Output image is ready.
-    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return outputImage;
+    return blurredBackground;
 }
 
 

@@ -19,17 +19,15 @@
 @interface BrowseViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, APIHandlerProtocol, UISearchBarDelegate, LocationHandlerDelegate, CLLocationManagerDelegate, UITabBarControllerDelegate, CustomCollectionViewCellDelegate, OverlayDelegate>
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) LocationHandler *locationHandler;
 @property (strong, nonatomic) APIHandler *apiHandler;
 @property (strong, nonatomic) Photo *photoHandler;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) Photo *currentlyViewingPhoto;
-@property (nonatomic) BOOL isFullscreen;
 @property (strong, nonatomic) UIImageView *blurredBackground;
 @property (strong, nonatomic) OverlayView *overlay;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *userHashtagSegControl;
-@property (nonatomic) BOOL hashtagOrUser;
 
 @end
 
@@ -43,50 +41,9 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:37.0 / 255.0 green:122.0 / 255.0 blue:103.0 / 255.0 alpha:1.0]];
     
     
-    
-    self.isFullscreen = NO;
-    
-    
-    [[LocationHandler getSharedInstance] setDelegate:self];
-
-    
-    self.locationManager = [CLLocationManager new];
-    self.locationManager.delegate = self;
-    [self.locationManager requestAlwaysAuthorization];
-    
-//    [self.collectionView registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"PhotoCellID"];
-    
     if (self.displays == nil) {
         self.displays = [NSMutableArray new];
     }
-    
-//    for (int i = 1; i < 7; i++) {
-//        NSString *photoName = [NSString stringWithFormat:@"photo%i", i];
-//        UIImage *image = [UIImage imageNamed:photoName];
-//        
-//        Photo *photo = [Photo new];
-//        photo.image = image;
-//        
-//        [self.displays addObject:photo];
-//    }
-    
-    self.apiHandler = [APIHandler new];
-    self.apiHandler.delegate = self;
-    
-    self.tabBarController.delegate = self;
-    
-//    double lat = 37.7833;
-//    double lon = -122.4167;
-//    
-//    double span = 1.0;
-//    
-//    [self.apiHandler getPhotosWithLocation:lat andLon:lon andSpan:span];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [self loadFavorites];
     
     self.userHashtagSegControl.alpha = 0;
     self.userHashtagSegControl.hidden = YES;
@@ -95,14 +52,32 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         self.favorites = [NSMutableArray new];
         
     }
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self loadFavorites];
     
     [[LocationHandler getSharedInstance] startUpdating];
-    [self.collectionView reloadData];
+    [[LocationHandler getSharedInstance] setDelegate:self];
     
-    self.tabBarController.delegate = self;
+    self.apiHandler = [APIHandler new];
+    self.apiHandler.delegate = self;
     
     
+}
+
+
+- (void)updateUserLocation:(CLLocation *)location {
     
+    if (location.coordinate.latitude != 0.0) {
+        self.userLocation = location;
+        [self.apiHandler getPhotosWithLocation:location.coordinate.latitude andLon:location.coordinate.longitude andSpan:0.5];
+    } else {
+        NSError *error = [NSError new];
+        [self failedWithError:error];
+    }
     
 }
 
@@ -124,29 +99,8 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [userDefaults setObject:encodedFavorites forKey:@"Favorites"];
     [userDefaults synchronize];
     
-    
-    
 }
 
-/*
- 
- NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
- NSData *encodedFavorites = [userDefaults objectForKey:@"Favorites"];
- self.favorites = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFavorites];
- 
- 
- 
- 
- */
-
-
-- (void)updateUserLocation:(CLLocation *)location {
-    self.userLocation = location;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    self.userLocation = locations.firstObject;
-}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
@@ -156,11 +110,7 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         [self.apiHandler getPhotosWithUsername:self.searchBar.text];
     }
     
-    
-    
     [self.searchBar resignFirstResponder];
-    
-    [self.collectionView reloadData];
 }
 
 
@@ -188,7 +138,7 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     self.blurredBackground.alpha = 0.0;
     [self.view addSubview:self.blurredBackground];
     
-    self.overlay = [[OverlayView alloc] initWithPhoto:self.currentlyViewingPhoto andCurrentView:self.view andText:@"Add To Collection"];
+    self.overlay = [[OverlayView alloc] initWithPhoto:self.currentlyViewingPhoto andCurrentView:self.view];
     self.overlay.delegate = self;
     //
     //    self.overlay.frame = CGRectMake(0.0, 0.0, self.overlay.frame.size.width, self.overlay.frame.size.height);
@@ -241,43 +191,9 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     
     CIImage *inputImage = [CIImage imageWithCGImage:snapshot.CGImage];
     
-    // Apply Affine-Clamp filter to stretch the image so that it does not
-    // look shrunken when gaussian blur is applied
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
-    [clampFilter setValue:inputImage forKey:@"inputImage"];
-    [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+    UIImage *blurredBackground = [OverlayView blurImage:self.view andSnapshop:inputImage];
     
-    // Apply gaussian blur filter with radius of 30
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
-    [gaussianBlurFilter setValue:clampFilter.outputImage forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:@20 forKey:@"inputRadius"];
-    
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef cgImage = [context createCGImage:gaussianBlurFilter.outputImage fromRect:[inputImage extent]];
-    
-    // Set up output context.
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    CGContextRef outputContext = UIGraphicsGetCurrentContext();
-    
-    // Invert image coordinates
-    CGContextScaleCTM(outputContext, 1.0, -1.0);
-    CGContextTranslateCTM(outputContext, 0, -self.view.frame.size.height);
-    
-    // Draw base image.
-    CGContextDrawImage(outputContext, self.view.frame, cgImage);
-    
-    // Apply dark tint
-    CGContextSaveGState(outputContext);
-    CGContextSetFillColorWithColor(outputContext, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5].CGColor);
-    CGContextFillRect(outputContext, self.view.frame);
-    CGContextRestoreGState(outputContext);
-    
-    // Output image is ready.
-    UIImage *outputImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return outputImage;
+    return blurredBackground;
 }
 
 
@@ -365,6 +281,8 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         self.userHashtagSegControl.hidden = YES;
     }];
     
+    [self.searchBar resignFirstResponder];
+    
 }
 
 
@@ -378,11 +296,10 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
         
         [self.apiHandler getPhotosWithLocation:lat andLon:lon andSpan:0.5];
         
-        [[LocationHandler getSharedInstance] stopUpdating];
         [self.searchBar resignFirstResponder];
     } else {
         if (self.userHashtagSegControl.selectedSegmentIndex == 0) {
-            [self.apiHandler getPhotosWithKeyword:self.searchBar.text hashtagOrUser:self.hashtagOrUser];
+            [self.apiHandler getPhotosWithKeyword:self.searchBar.text hashtagOrUser:YES];
 
         } else {
             [self.apiHandler getPhotosWithUsername:self.searchBar.text];;
@@ -422,47 +339,8 @@ static NSString * const accessToken = @"1146404.ab103e5.44f5f336040e470e8e1d2861
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (IBAction)segControlDidChange:(UISegmentedControl *)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        self.hashtagOrUser = YES;
-    } else {
-        self.hashtagOrUser = NO;
-    }
-    
-    
-}
 
 
 
-#pragma mark <UICollectionViewDelegate>
-
-/*
- // Uncomment this method to specify if the specified item should be highlighted during tracking
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
- }
- */
-
-/*
- // Uncomment this method to specify if the specified item should be selected
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
- }
- */
-
-/*
- // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
- }
- 
- - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
- }
- 
- - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
- }
- */
 
 @end

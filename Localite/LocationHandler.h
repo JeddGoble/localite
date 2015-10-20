@@ -24,11 +24,16 @@
 {
     CLLocationManager *locationManager;
 }
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) id <LocationHandlerDelegate> delegate;
+@property (nonatomic, strong) CLLocation *currentLocation;
+
+@property (nonatomic, assign) id <LocationHandlerDelegate> delegate;
 
 + (id)getSharedInstance;
+
 - (void) startUpdating;
+
 - (void) stopUpdating;
 
 
