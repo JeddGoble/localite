@@ -46,7 +46,7 @@
         self.addOrRemoveLabel.text = [NSString stringWithFormat:@"Remove From Collection"];
         self.addOrRemoveLabel.textColor = [UIColor redColor];
     } else {
-        self.addOrRemoveLabel.text = [NSString stringWithFormat:@"Add To Collection"];
+        self.addOrRemoveLabel.text = [NSString stringWithFormat:@"View on Instagram"];
         self.addOrRemoveLabel.textColor = [UIColor colorWithRed:155.0 / 255.0 green: 107.0 / 255.0 blue:25.0 / 255.0 alpha:1.0];
     }
     
