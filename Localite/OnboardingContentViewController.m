@@ -1,22 +1,26 @@
 //
-//  TutorialViewController.m
+//  OboardingContentViewController.m
 //  Localite
 //
-//  Created by Jedd Goble on 11/9/15.
-//  Copyright © 2015 Mobile Makers. All rights reserved.
+//  Created by Jedd Goble on 4/15/16.
+//  Copyright © 2016 Mobile Makers. All rights reserved.
 //
 
-#import "TutorialPageViewController.h"
+#import "OnboardingContentViewController.h"
 
-@interface TutorialPageViewController ()
+@interface OnboardingContentViewController ()
 
 @end
 
-@implementation TutorialPageViewController
+@implementation OnboardingContentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.onboardingImageView.image = [UIImage imageNamed:self.imageFile];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

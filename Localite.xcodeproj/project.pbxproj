@@ -7,22 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0422103C1CC15C64006DE670 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0422103B1CC15C64006DE670 /* Onboarding.storyboard */; };
+		0422103F1CC15CAD006DE670 /* OnboardingRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422103E1CC15CAD006DE670 /* OnboardingRootViewController.m */; };
+		042210421CC15CBE006DE670 /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042210411CC15CBE006DE670 /* OnboardingContentViewController.m */; };
+		042210451CC15CD5006DE670 /* OnboardingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042210441CC15CD5006DE670 /* OnboardingPageViewController.m */; };
+		042210481CC17A55006DE670 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042210471CC17A55006DE670 /* AuthenticationViewController.m */; };
 		04327F901BD40AE700C4FA46 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */; };
 		04327F931BD433DB00C4FA46 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F921BD433DB00C4FA46 /* OverlayView.m */; };
-		043754071BF0F7040091CF5B /* TutorialPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043754061BF0F7040091CF5B /* TutorialPageViewController.m */; };
 		043852041BD1B69600877B8E /* LocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 043852031BD1B69600877B8E /* LocationHandler.m */; };
 		0466236C1BD154F400D7E259 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0466236B1BD154F400D7E259 /* MapKit.framework */; };
 		046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB9501BD0767100F01BEB /* BrowseViewController.m */; };
 		046DB9541BD0873F00F01BEB /* CustomFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB9531BD0873F00F01BEB /* CustomFlowLayout.m */; };
 		047351D01BD2FBF1004174A4 /* CustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047351CF1BD2FBF1004174A4 /* CustomCollectionViewCell.m */; };
-		047837951BF3A01800AC80F5 /* TutorialContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 047837941BF3A01800AC80F5 /* TutorialContentViewController.m */; };
 		0478379F1BF3A2C900AC80F5 /* tutorialPage1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0478379C1BF3A2C900AC80F5 /* tutorialPage1.png */; };
 		047837A01BF3A2C900AC80F5 /* tutorialPage2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0478379D1BF3A2C900AC80F5 /* tutorialPage2.png */; };
 		047837A11BF3A2C900AC80F5 /* tutorialPage3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0478379E1BF3A2C900AC80F5 /* tutorialPage3.png */; };
 		04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1A1BD0528B006522E7 /* APIHandler.m */; };
 		04831E1E1BD0548D006522E7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1D1BD0548D006522E7 /* Photo.m */; };
 		0485D6AB1BD1D4F600890DF6 /* CustomPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */; };
-		04932C241CC14F350028C7E0 /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932C231CC14F350028C7E0 /* OnboardingViewController.m */; };
 		04E7D16E1C03541E000FD181 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7D16D1C03541E000FD181 /* SettingsViewController.m */; };
 		04F2384E1BD03DDC00FAD68C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2384D1BD03DDC00FAD68C /* main.m */; };
 		04F238511BD03DDC00FAD68C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238501BD03DDC00FAD68C /* AppDelegate.m */; };
@@ -53,12 +55,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0422103B1CC15C64006DE670 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		0422103D1CC15CAD006DE670 /* OnboardingRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingRootViewController.h; sourceTree = "<group>"; };
+		0422103E1CC15CAD006DE670 /* OnboardingRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingRootViewController.m; sourceTree = "<group>"; };
+		042210401CC15CBE006DE670 /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
+		042210411CC15CBE006DE670 /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
+		042210431CC15CD5006DE670 /* OnboardingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingPageViewController.h; sourceTree = "<group>"; };
+		042210441CC15CD5006DE670 /* OnboardingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingPageViewController.m; sourceTree = "<group>"; };
+		042210461CC17A55006DE670 /* AuthenticationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
+		042210471CC17A55006DE670 /* AuthenticationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
 		04327F8E1BD40AE700C4FA46 /* CustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
 		04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
 		04327F911BD433DB00C4FA46 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
 		04327F921BD433DB00C4FA46 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
-		043754051BF0F7040091CF5B /* TutorialPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialPageViewController.h; sourceTree = "<group>"; };
-		043754061BF0F7040091CF5B /* TutorialPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialPageViewController.m; sourceTree = "<group>"; };
 		043852021BD1B69600877B8E /* LocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHandler.h; sourceTree = "<group>"; };
 		043852031BD1B69600877B8E /* LocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHandler.m; sourceTree = "<group>"; };
 		0466236B1BD154F400D7E259 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -68,8 +77,6 @@
 		046DB9531BD0873F00F01BEB /* CustomFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlowLayout.m; sourceTree = "<group>"; };
 		047351CE1BD2FBF1004174A4 /* CustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCollectionViewCell.h; sourceTree = "<group>"; };
 		047351CF1BD2FBF1004174A4 /* CustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewCell.m; sourceTree = "<group>"; };
-		047837931BF3A01800AC80F5 /* TutorialContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialContentViewController.h; sourceTree = "<group>"; };
-		047837941BF3A01800AC80F5 /* TutorialContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialContentViewController.m; sourceTree = "<group>"; };
 		0478379C1BF3A2C900AC80F5 /* tutorialPage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialPage1.png; sourceTree = "<group>"; };
 		0478379D1BF3A2C900AC80F5 /* tutorialPage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialPage2.png; sourceTree = "<group>"; };
 		0478379E1BF3A2C900AC80F5 /* tutorialPage3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorialPage3.png; sourceTree = "<group>"; };
@@ -79,8 +86,6 @@
 		04831E1D1BD0548D006522E7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		0485D6A91BD1D4F600890DF6 /* CustomPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPointAnnotation.h; sourceTree = "<group>"; };
 		0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPointAnnotation.m; sourceTree = "<group>"; };
-		04932C221CC14F350028C7E0 /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
-		04932C231CC14F350028C7E0 /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		04E7D16C1C03541E000FD181 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		04E7D16D1C03541E000FD181 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		04F238491BD03DDC00FAD68C /* Localite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Localite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +134,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0422103A1CC15C38006DE670 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0422103B1CC15C64006DE670 /* Onboarding.storyboard */,
+				0422103D1CC15CAD006DE670 /* OnboardingRootViewController.h */,
+				0422103E1CC15CAD006DE670 /* OnboardingRootViewController.m */,
+				042210401CC15CBE006DE670 /* OnboardingContentViewController.h */,
+				042210411CC15CBE006DE670 /* OnboardingContentViewController.m */,
+				042210431CC15CD5006DE670 /* OnboardingPageViewController.h */,
+				042210441CC15CD5006DE670 /* OnboardingPageViewController.m */,
+				042210461CC17A55006DE670 /* AuthenticationViewController.h */,
+				042210471CC17A55006DE670 /* AuthenticationViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
 		04327F941BD457F500C4FA46 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +226,7 @@
 		04F2384B1BD03DDC00FAD68C /* Localite */ = {
 			isa = PBXGroup;
 			children = (
+				0422103A1CC15C38006DE670 /* Onboarding */,
 				0478379C1BF3A2C900AC80F5 /* tutorialPage1.png */,
 				0478379D1BF3A2C900AC80F5 /* tutorialPage2.png */,
 				0478379E1BF3A2C900AC80F5 /* tutorialPage3.png */,
@@ -213,12 +235,6 @@
 				04327F971BD4584400C4FA46 /* Custom Objects */,
 				04327F951BD4581300C4FA46 /* Custom Subclasses */,
 				04F238581BD03DDC00FAD68C /* Main.storyboard */,
-				04932C221CC14F350028C7E0 /* OnboardingViewController.h */,
-				04932C231CC14F350028C7E0 /* OnboardingViewController.m */,
-				047837931BF3A01800AC80F5 /* TutorialContentViewController.h */,
-				047837941BF3A01800AC80F5 /* TutorialContentViewController.m */,
-				043754051BF0F7040091CF5B /* TutorialPageViewController.h */,
-				043754061BF0F7040091CF5B /* TutorialPageViewController.m */,
 				04F2385B1BD03DDC00FAD68C /* Assets.xcassets */,
 				04F2384C1BD03DDC00FAD68C /* Supporting Files */,
 			);
@@ -368,6 +384,7 @@
 				04F2385C1BD03DDC00FAD68C /* Assets.xcassets in Resources */,
 				047837A11BF3A2C900AC80F5 /* tutorialPage3.png in Resources */,
 				047837A01BF3A2C900AC80F5 /* tutorialPage2.png in Resources */,
+				0422103C1CC15C64006DE670 /* Onboarding.storyboard in Resources */,
 				0478379F1BF3A2C900AC80F5 /* tutorialPage1.png in Resources */,
 				04F2385A1BD03DDC00FAD68C /* Main.storyboard in Resources */,
 			);
@@ -394,14 +411,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				043754071BF0F7040091CF5B /* TutorialPageViewController.m in Sources */,
 				04831E1E1BD0548D006522E7 /* Photo.m in Sources */,
 				04F238571BD03DDC00FAD68C /* MapViewController.m in Sources */,
 				04E7D16E1C03541E000FD181 /* SettingsViewController.m in Sources */,
 				04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */,
-				04932C241CC14F350028C7E0 /* OnboardingViewController.m in Sources */,
+				042210481CC17A55006DE670 /* AuthenticationViewController.m in Sources */,
+				042210421CC15CBE006DE670 /* OnboardingContentViewController.m in Sources */,
 				047351D01BD2FBF1004174A4 /* CustomCollectionViewCell.m in Sources */,
-				047837951BF3A01800AC80F5 /* TutorialContentViewController.m in Sources */,
+				0422103F1CC15CAD006DE670 /* OnboardingRootViewController.m in Sources */,
 				046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */,
 				04F238511BD03DDC00FAD68C /* AppDelegate.m in Sources */,
 				04327F931BD433DB00C4FA46 /* OverlayView.m in Sources */,
@@ -410,6 +427,7 @@
 				0485D6AB1BD1D4F600890DF6 /* CustomPointAnnotation.m in Sources */,
 				046DB9541BD0873F00F01BEB /* CustomFlowLayout.m in Sources */,
 				043852041BD1B69600877B8E /* LocationHandler.m in Sources */,
+				042210451CC15CD5006DE670 /* OnboardingPageViewController.m in Sources */,
 				04F238841BD0439C00FAD68C /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

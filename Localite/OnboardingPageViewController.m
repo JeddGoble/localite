@@ -1,18 +1,18 @@
 //
-//  OnboardingViewController.m
+//  OnboardingPageViewController.m
 //  Localite
 //
 //  Created by Jedd Goble on 4/15/16.
 //  Copyright © 2016 Mobile Makers. All rights reserved.
 //
 
-#import "OnboardingViewController.h"
+#import "OnboardingPageViewController.h"
 
-@interface OnboardingViewController ()
+@interface OnboardingPageViewController ()
 
 @end
 
-@implementation OnboardingViewController
+@implementation OnboardingPageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +34,4 @@
 }
 */
 
-- (IBAction)onConnectWithInstagramButtonTapped:(UIButton *)sender {
-}
 @end
