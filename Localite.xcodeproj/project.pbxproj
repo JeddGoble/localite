@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		04327F901BD40AE700C4FA46 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */; };
 		04327F931BD433DB00C4FA46 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04327F921BD433DB00C4FA46 /* OverlayView.m */; };
-		043754071BF0F7040091CF5B /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043754061BF0F7040091CF5B /* TutorialViewController.m */; };
+		043754071BF0F7040091CF5B /* TutorialPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043754061BF0F7040091CF5B /* TutorialPageViewController.m */; };
 		043852041BD1B69600877B8E /* LocationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 043852031BD1B69600877B8E /* LocationHandler.m */; };
 		0466236C1BD154F400D7E259 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0466236B1BD154F400D7E259 /* MapKit.framework */; };
 		046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 046DB9501BD0767100F01BEB /* BrowseViewController.m */; };
@@ -22,6 +22,7 @@
 		04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1A1BD0528B006522E7 /* APIHandler.m */; };
 		04831E1E1BD0548D006522E7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04831E1D1BD0548D006522E7 /* Photo.m */; };
 		0485D6AB1BD1D4F600890DF6 /* CustomPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */; };
+		04932C241CC14F350028C7E0 /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04932C231CC14F350028C7E0 /* OnboardingViewController.m */; };
 		04E7D16E1C03541E000FD181 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E7D16D1C03541E000FD181 /* SettingsViewController.m */; };
 		04F2384E1BD03DDC00FAD68C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2384D1BD03DDC00FAD68C /* main.m */; };
 		04F238511BD03DDC00FAD68C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F238501BD03DDC00FAD68C /* AppDelegate.m */; };
@@ -56,8 +57,8 @@
 		04327F8F1BD40AE700C4FA46 /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
 		04327F911BD433DB00C4FA46 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
 		04327F921BD433DB00C4FA46 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
-		043754051BF0F7040091CF5B /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
-		043754061BF0F7040091CF5B /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		043754051BF0F7040091CF5B /* TutorialPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialPageViewController.h; sourceTree = "<group>"; };
+		043754061BF0F7040091CF5B /* TutorialPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialPageViewController.m; sourceTree = "<group>"; };
 		043852021BD1B69600877B8E /* LocationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHandler.h; sourceTree = "<group>"; };
 		043852031BD1B69600877B8E /* LocationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHandler.m; sourceTree = "<group>"; };
 		0466236B1BD154F400D7E259 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -78,6 +79,8 @@
 		04831E1D1BD0548D006522E7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		0485D6A91BD1D4F600890DF6 /* CustomPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPointAnnotation.h; sourceTree = "<group>"; };
 		0485D6AA1BD1D4F600890DF6 /* CustomPointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPointAnnotation.m; sourceTree = "<group>"; };
+		04932C221CC14F350028C7E0 /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		04932C231CC14F350028C7E0 /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		04E7D16C1C03541E000FD181 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		04E7D16D1C03541E000FD181 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		04F238491BD03DDC00FAD68C /* Localite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Localite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,10 +213,12 @@
 				04327F971BD4584400C4FA46 /* Custom Objects */,
 				04327F951BD4581300C4FA46 /* Custom Subclasses */,
 				04F238581BD03DDC00FAD68C /* Main.storyboard */,
+				04932C221CC14F350028C7E0 /* OnboardingViewController.h */,
+				04932C231CC14F350028C7E0 /* OnboardingViewController.m */,
 				047837931BF3A01800AC80F5 /* TutorialContentViewController.h */,
 				047837941BF3A01800AC80F5 /* TutorialContentViewController.m */,
-				043754051BF0F7040091CF5B /* TutorialViewController.h */,
-				043754061BF0F7040091CF5B /* TutorialViewController.m */,
+				043754051BF0F7040091CF5B /* TutorialPageViewController.h */,
+				043754061BF0F7040091CF5B /* TutorialPageViewController.m */,
 				04F2385B1BD03DDC00FAD68C /* Assets.xcassets */,
 				04F2384C1BD03DDC00FAD68C /* Supporting Files */,
 			);
@@ -389,11 +394,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				043754071BF0F7040091CF5B /* TutorialViewController.m in Sources */,
+				043754071BF0F7040091CF5B /* TutorialPageViewController.m in Sources */,
 				04831E1E1BD0548D006522E7 /* Photo.m in Sources */,
 				04F238571BD03DDC00FAD68C /* MapViewController.m in Sources */,
 				04E7D16E1C03541E000FD181 /* SettingsViewController.m in Sources */,
 				04831E1B1BD0528B006522E7 /* APIHandler.m in Sources */,
+				04932C241CC14F350028C7E0 /* OnboardingViewController.m in Sources */,
 				047351D01BD2FBF1004174A4 /* CustomCollectionViewCell.m in Sources */,
 				047837951BF3A01800AC80F5 /* TutorialContentViewController.m in Sources */,
 				046DB9511BD0767100F01BEB /* BrowseViewController.m in Sources */,

@@ -10,7 +10,7 @@
 
 @interface TutorialContentViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @property (nonatomic) NSUInteger pageIndex;
 @property (strong, nonatomic) NSString *imageFile;

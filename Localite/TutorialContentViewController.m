@@ -17,7 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.backgroundImageView = [UIImage imageNamed:self.imageFile];
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imageFile]];
+    
+    
 }
 
 
